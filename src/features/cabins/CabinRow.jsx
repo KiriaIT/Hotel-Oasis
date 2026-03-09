@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
+import {deleteCabin} from "../../services/apiCabins.js";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 const TableRow = styled.div`
     display: grid;
@@ -45,25 +47,40 @@ const Actions = styled.div`
   gap: 1rem;
 `;
 
-function CabinRow({ cabin }) {
-    const { name, maxCapacity, regularPrice, discount, image } = cabin;
 
-    return (
-        <TableRow role="row">
-            <Img src={image} alt={name} />
-            <Cabin>{name}</Cabin>
-            <div>Fits up to {maxCapacity} guests</div>
-            <Price>{formatCurrency(regularPrice)}</Price>
-            {discount ? (
-                <Discount>{formatCurrency(discount)}</Discount>
-            ) : (
-                <span>&mdash;</span>
-            )}
-            <Actions>
-                <button>Delete</button>
-            </Actions>
-        </TableRow>
-    );
-}
+
+    function CabinRow({cabin}) {
+        const {name, maxCapacity, regularPrice, discount, image, id} = cabin;
+
+        const queryClient = useQueryClient();
+
+        const {isLoading: isDeleting, mutate} = useMutation({
+            mutationFn: deleteCabin,
+            onSuccess: () => {
+               toast.success ("Cabin successfully deleted");
+                queryClient.invalidateQueries({
+                    query: ["cabins"],
+                })
+            },
+            onError: (err) => toast.error(err.message),
+
+        });
+
+        return (
+            <TableRow role="row">
+                <Img src={image} alt={name}/>
+                <Cabin>{name}</Cabin>
+                <div>Fits up to {maxCapacity} guests</div>
+                <Price>{formatCurrency(regularPrice)}</Price>
+                {discount ? <Discount>{formatCurrency(discount)}</Discount> : <span>&mdash;</span>}
+                <Actions>
+                    <button onClick={() => mutate(id)} disabled={isDeleting}>
+                        {isDeleting ? "Deleting..." : "Delete"}
+                    </button>
+                </Actions>
+            </TableRow>
+        );
+    }
+
 
 export default CabinRow;
