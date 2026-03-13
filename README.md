@@ -129,9 +129,11 @@ src/
 
 ## What You Need in Supabase
 
-- **Tables:** `guests`, `cabins`, `bookings` (with FKs to cabins and guests), `settings` (one row, `id = 1`). See project docs or SQL in the repo for exact columns.
-- **Storage buckets:** `cabin-images` and `avatars`, both public, for cabin photos and user avatars.
-- **Auth:** Email provider enabled; no custom users table (Supabase Auth only).
+- **Tables:** `guests`, `cabins`, `bookings` (with FKs to cabins and guests), `settings` (one row, `id = 1`).  
+  **→ Use the provided schema:** run `supabase-schema.sql` in the Supabase SQL Editor to create all tables and seed the single `settings` row. Without this, the Settings page and check-in (breakfast price) will fail.
+- **Storage buckets:** Create in Dashboard → Storage: `cabin-images` and `avatars`, both **public**, for cabin photos and user avatars. Add policies so authenticated users can upload and public can read.
+- **Auth:** Enable Email provider in Authentication → Providers. No custom users table (Supabase Auth only).
+- **Optional:** Row Level Security (RLS) on tables and storage; the app assumes authenticated users can read/write. See comments in `supabase-schema.sql`.
 
 ---
 
