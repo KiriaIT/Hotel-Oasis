@@ -154,3 +154,11 @@ npm run preview
 ## Summary
 
 **The Wild Oasis** is a React SPA that uses **Vite**, **React Router**, **React Query**, and **Supabase** to provide a full hotel-management workflow: authentication, cabin and booking CRUD, check-in/check-out, dashboard stats and charts, and configurable settings. Styling is done with **styled-components** and CSS variables for **light/dark** themes, with reusable UI components and feature-based organization.
+
+///
+user@gmail.com
+12345678
+///
+
+
+
