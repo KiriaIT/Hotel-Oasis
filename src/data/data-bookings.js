@@ -16,7 +16,7 @@ export const bookings = [
     guestId: 2,
     hasBreakfast: true,
     observations:
-      'I have a gluten allergy and would like to request a gluten-free breakfast.',
+        'I have a gluten allergy and would like to request a gluten-free breakfast.',
     isPaid: false,
     numGuests: 1,
   },
@@ -192,7 +192,7 @@ export const bookings = [
     guestId: 17,
     hasBreakfast: false,
     observations:
-      "We will be checking in late, around midnight. Hope that's okay :)",
+        "We will be checking in late, around midnight. Hope that's okay :)",
     isPaid: true,
     numGuests: 6,
   },
@@ -263,7 +263,7 @@ export const bookings = [
     guestId: 1,
     hasBreakfast: true,
     observations:
-      'My wife has a gluten allergy so I would like to request a gluten-free breakfast if possible',
+        'My wife has a gluten allergy so I would like to request a gluten-free breakfast if possible',
     isPaid: true,
     numGuests: 9,
   },
@@ -275,7 +275,7 @@ export const bookings = [
     guestId: 23,
     hasBreakfast: true,
     observations:
-      'I am celebrating my anniversary, can you arrange for any special amenities or decorations?',
+        'I am celebrating my anniversary, can you arrange for any special amenities or decorations?',
     isPaid: true,
     numGuests: 10,
   },

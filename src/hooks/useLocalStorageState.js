@@ -7,10 +7,10 @@ export function useLocalStorageState(initialState, key) {
   });
 
   useEffect(
-    function () {
-      localStorage.setItem(key, JSON.stringify(value));
-    },
-    [value, key]
+      function () {
+        localStorage.setItem(key, JSON.stringify(value));
+      },
+      [value, key]
   );
 
   return [value, setValue];
