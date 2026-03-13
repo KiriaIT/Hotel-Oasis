@@ -17,11 +17,19 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
 
     const { id: editId, ...editValues } = cabinToEdit;
     const isEditSession = Boolean(editId);
+    const defaultValues = isEditSession
+        ? {
+              ...editValues,
+              regularPrice:
+                  editValues.regularPrice ?? editValues.regular_price,
+          }
+        : { discount: 0 };
 
-    const { register, handleSubmit, reset, getValues, formState } = useForm({
-        defaultValues: isEditSession ? editValues : {},
+    const { register, handleSubmit, reset, watch, formState } = useForm({
+        defaultValues,
     });
     const { errors } = formState;
+    const regularPrice = watch("regularPrice");
 
     function onSubmit(data) {
         const image = typeof data.image === "string" ? data.image : data.image[0];
@@ -103,12 +111,20 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
                     type="number"
                     id="discount"
                     disabled={isWorking}
-                    defaultValue={0}
                     {...register("discount", {
                         required: "This field is required",
-                        validate: (value) =>
-                            value <= getValues().regularPrice ||
-                            "Discount should be less than regular price",
+                        validate: (value) => {
+                            const price =
+                                regularPrice ??
+                                editValues.regular_price ??
+                                editValues.regularPrice;
+                            const numPrice = Number(price);
+                            if (!numPrice || isNaN(numPrice)) return true;
+                            return (
+                                Number(value) < numPrice ||
+                                "Discount should be less than regular price"
+                            );
+                        },
                     })}
                 />
             </FormRow>
